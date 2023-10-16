@@ -4,6 +4,18 @@
 #include <string>
 #include <ctime>
 
+void reverseKey(std::string& key) {
+    int l = 0;
+    int r = key.size() - 1;
+
+        //reverse string order of v
+        while(l < r) {
+            std::swap(key[l], key[r]);
+            ++l;
+            --r;
+        }
+}
+
 int main(int argc, char const *argv[])
 {
     std::map<int, std::string> mp;
@@ -50,15 +62,7 @@ int main(int argc, char const *argv[])
     start = clock();
     while(small_inFile >> v) {
         k = std::to_string(v);
-        int l = 0;
-        int r = k.size() - 1;
-
-        //reverse string order of v
-        while(l < r) {
-            std::swap(k[l], k[r]);
-            ++l;
-            --r;
-        }
+        reverseKey(k);
 
         //store v & k
         mps[v] = k;
@@ -88,15 +92,7 @@ int main(int argc, char const *argv[])
    start = clock();
     while(large_inFile >> v) {
         k = std::to_string(v);
-        int l = 0;
-        int r = k.size() - 1;
-
-        //reverse string order of v
-        while(l < r) {
-            std::swap(k[l], k[r]);
-            ++l;
-            --r;
-        }
+        reverseKey(k);
 
         //store v & k
         mps[v] = k;
@@ -106,7 +102,7 @@ int main(int argc, char const *argv[])
     std::cout << "large100k.txt Running-time: " << end - start << " ms" << std::endl;
 
     q = mps.begin();
-    n = 5;
+    n = 10;    //first 10
     while(q != mps.end() && n--) {
         std::cout << "{(" << q->first << ", " << q->second << ")} , ";
         ++q;
