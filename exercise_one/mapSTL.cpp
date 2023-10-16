@@ -36,6 +36,7 @@ int main(int argc, char const *argv[])
     */
 
     std::fstream small_inFile("C:/Users/jesus/GitHub/Hash-Map/small1k.txt", std::ios_base::in);
+    std::fstream large_inFile("C:/Users/jesus/GitHub/Hash-Map/large100k.txt", std::ios_base::in);
     std::map<int, std::string> mps;
     int v = 0;
     std::string k = "";
@@ -64,16 +65,54 @@ int main(int argc, char const *argv[])
     }
     end = clock();
 
-    std::cout << "Running-time: " << end - start << " ms" << std::endl;
+    std::cout << "small1k.txt Running-time: " << end - start << " ms" << std::endl;
 
-    auto q = mps.begin();
-    int n = 5;
+    auto q = mps.begin();   //iterator
+    int n = 5;              //first 5 print for test
+    while(q != mps.end() && n--) {
+        std::cout << "{(" << q->first << ", " << q->second << ")} , ";
+        ++q;    //increment to the next
+    }
+
+    std::cout << "\n\n End part 2 \n\n" << std::endl;
+
+    /*
+        FILE PART 3 OF 3
+    */
+
+   //Reset
+   mps.clear();
+   v = 0;
+   k = "";
+
+   start = clock();
+    while(large_inFile >> v) {
+        k = std::to_string(v);
+        int l = 0;
+        int r = k.size() - 1;
+
+        //reverse string order of v
+        while(l < r) {
+            std::swap(k[l], k[r]);
+            ++l;
+            --r;
+        }
+
+        //store v & k
+        mps[v] = k;
+    }
+    end = clock();
+
+    std::cout << "large100k.txt Running-time: " << end - start << " ms" << std::endl;
+
+    q = mps.begin();
+    n = 5;
     while(q != mps.end() && n--) {
         std::cout << "{(" << q->first << ", " << q->second << ")} , ";
         ++q;
     }
 
-    std::cout << "\n\n End part 2 \n\n" << std::endl;
+    std::cout << "\n\n End part 3 \n\n" << std::endl;
 
     return 0;
 }
