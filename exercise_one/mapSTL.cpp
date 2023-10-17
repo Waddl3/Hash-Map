@@ -20,6 +20,7 @@ int main(int argc, char const *argv[])
 {
     std::map<int, std::string> mp;
     std::map<int, std::string>::iterator p;
+    //mp(std::pair<int, std::string>(13,"31"));
     mp[13] = "31";
     mp[21] = "12";
     mp[5] = "5";
