@@ -72,7 +72,7 @@ int main(int argc, char const *argv[])
 
     std::fstream small_inFile("C:/Users/jesus/Documents/GitHub/Hash-Map/small1k.txt", std::ios_base::in);
     std::fstream large_inFile("C:/Users/jesus/Documents/GitHub/Hash-Map/large100k.txt", std::ios_base::in);
-    HashMap<int, std::string, intHashCode> filesMap;
+    HashMap<int, std::string, intHashCode> filesMap(2 * 1000 + 1);
     int k = 0;
     std::string v = "";
     clock_t start, end;
@@ -105,7 +105,7 @@ int main(int argc, char const *argv[])
     /*
         FILE PART 3 OF 3
     */
-    HashMap<int, std::string, intHashCode> large_fileMaps;
+    HashMap<int, std::string, intHashCode> large_fileMaps(2 * 100000 + 1);
 
     //not open?
     if(!large_inFile.is_open()) std::cout << "Not Found" << std::endl;
