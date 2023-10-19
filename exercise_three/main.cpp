@@ -3,6 +3,7 @@
 #include <cmath>
 #include <fstream>
 #include <unordered_map>
+#include <cctype>
 
 //Hashcodes
 class HashCode {
@@ -26,35 +27,53 @@ int main(int argc, char const *argv[])
 {
 
     std::cout << "Author: Jesus Rodriguez-Luna" << std::endl;
-
-    std::ifstream US_DoI_File("C:/Users/jesus/Documents/GitHub/Hash-Map/usdeclarPC.txt");
+    std::unordered_map<int, int> collisions;
+    std::unordered_map<int, std::string> wordList;
+    std::ifstream US_DoI_File("C:/Users/jesus/GitHub/Hash-Map/usdeclarPC.txt");
+    HashCode h;
+    int k = 0;
+    std::string word = "";
+    int sumOfCollisions = 0;
 
     //not open?
     if(!US_DoI_File.is_open()) std::cout << "Not Open!" << std::endl;
 
-
-    HashCode h;
-    std::unordered_map<int, int> map;
-    std::string word = "";
-
     while(US_DoI_File >> word) {
-        int hasher = std::abs(h(word, 0));
+        k = h(word);
 
-        if(map.find(hasher) != map.end()) {
-            map[hasher]++;
+        //std::cout << std::abs(hasher) << std::endl;
+
+        //collisions
+        if(collisions.find(k) != collisions.end()){
+            collisions[k]++;
         }
         else {
-            map[hasher] = 1;
+            collisions[k] = 1;
         }
+
+        //words repeated ignore
+        wordList[k] = word;
     }
 
-    auto p = map.begin();
-    std::cout << "{(HASH, COLLISION)}, a = 0" << std::endl;
-    while(!(p == map.end())) {
-        std::cout << "{(" << p->first << ", " << p->second << ")}" << std::endl;
-        ++p;
+    //n collisions
+    auto iter = collisions.begin();
+    while(iter != collisions.end()){
+        if(iter->second > 1) {
+            sumOfCollisions += iter->second;
+        }
+
+        ++iter;
     }
-    
+
+    std::cout << "WordList" << std::endl;
+   auto wordIter = wordList.begin();
+    while (wordIter != wordList.end()) {
+        std::cout << "{" << wordIter->second << "}" << std::endl;
+        ++wordIter;
+    }
+
+
+    std::cout << "Number of collisions: " << sumOfCollisions << std::endl;
     
     return 0;
 }
