@@ -3,24 +3,21 @@
 #include <cmath>
 #include <fstream>
 #include <unordered_map>
-#include <cctype>
 
 //Hashcodes
 class HashCode {
 public:
-    //polynomial hash code
-    int operator() (const std::string& s, const int a = 37) {
+    //cyclic shift hash codes
+    int operator() (const std::string& s, int a = 37) {
         unsigned int h = 0;
-        int k = s.size();
 
-        for(int i = 0; i < k; i++) {
-            int power = (k - 1) - i;
-            h += (unsigned int) s[i] * std::pow(a, power);
+        for(int i = 0; i < s.size(); i++) {
+            h = (h << 5) | (h >> a);
+            h += (unsigned int) s[i];
         }
 
-        return h;
+        return static_cast<int>(h);
     }
-
 };
 
 int main(int argc, char const *argv[])
@@ -39,9 +36,7 @@ int main(int argc, char const *argv[])
     if(!US_DoI_File.is_open()) std::cout << "Not Open!" << std::endl;
 
     while(US_DoI_File >> word) {
-        k = h(word);
-
-        //std::cout << std::abs(hasher) << std::endl;
+        k = std::abs(h(word, 40));
 
         //collisions
         if(collisions.find(k) != collisions.end()){
@@ -61,10 +56,11 @@ int main(int argc, char const *argv[])
         if(iter->second > 1) {
             sumOfCollisions += iter->second;
         }
+
         ++iter;
     }
 
-    std::cout << "Polynomial Hash Code - Number of collisions: " << sumOfCollisions << std::endl;
+    std::cout << "Cyclic Shift Hashcode - Number of collisions: " << sumOfCollisions << std::endl;
     
     return 0;
 }
