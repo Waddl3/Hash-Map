@@ -35,7 +35,7 @@ int main(int argc, char const *argv[])
     std::cout << "Author: Jesus Rodriguez-Luna" << std::endl;
     std::unordered_map<int, int> collisions;
     std::unordered_map<int, std::string> wordList;
-    std::ifstream US_DoI_File("C:/Users/jesus/GitHub/Hash-Map/usdeclarPC.txt");
+    std::ifstream US_DoI_File("C:/Users/jesus/Documents/GitHub/Hash-Map/usdeclarPC.txt");
     HashCode h;
     int hasher = 0;
     std::string word = "";
