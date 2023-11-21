@@ -9,11 +9,11 @@
 class HashCode {
 public:
     //cyclic shift hash codes
-    int operator() (const std::string& s, int a = 37) {
+    int operator() (const std::string& s, int a = 5) {
         unsigned int h = 0;
 
         for(int i = 0; i < s.size(); i++) {
-            h = (h << 5) | (h >> a);
+            h = (h << 5) | (h >> 32 - a);
             h += (unsigned int) s[i];
         }
 
@@ -32,11 +32,12 @@ std::string lowerCase(std::string& s) {
 
 int main(int argc, char const *argv[])
 {
-    std::cout << "Author: Jesus Rodriguez-Luna" << std::endl;
+    std::cout << "\nAuthor: Jesus Rodriguez-Luna\n" << std::endl;
     std::unordered_map<int, int> collisions;
     std::unordered_map<int, std::string> wordList;
     std::ifstream US_DoI_File("C:/Users/jesus/GitHub/Hash-Map/usdeclarPC.txt");
     HashCode h;
+    int a = 13;
     int hasher = 0;
     std::string word = "";
     int sumOfCollisions = 0;
@@ -46,7 +47,7 @@ int main(int argc, char const *argv[])
 
     while(US_DoI_File >> word) {
         //before generating hashcode, check if word exists
-        hasher = std::abs(h(lowerCase(word)));
+        hasher = std::abs(h(lowerCase(word), a));  //lowercase the word
         auto p = wordList.find(hasher);
         if(p == wordList.end()){
             wordList[hasher] = word;
@@ -63,13 +64,17 @@ int main(int argc, char const *argv[])
         ++q;
     }
 
+    //unique words
     auto p = wordList.begin();
+    int count = 0;
     while(p != wordList.end()) {
-        std::cout << "{" << p->first << ", " << p->second << "}" << std::endl;
+        count++;
         ++p;
     }
 
-    std::cout << "Cyclic Shift Hashcode - Number of collisions: " << sumOfCollisions << std::endl;
+    std::cout << "a = " << a << std::endl;
+    std::cout << "n Unique Words: " << count << std::endl;
+    std::cout << "Cyclic Shift Hash Code - Number of collisions: " << sumOfCollisions << std::endl;
     
     return 0;
 }

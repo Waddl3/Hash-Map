@@ -18,11 +18,12 @@ void reverseKey(std::string& key) {
 
 int main(int argc, char const *argv[])
 {
-    //unordered_map
     
     std::map<int, std::string> mp;
     std::map<int, std::string>::iterator p;
-    //mp.insert(std::pair<int, std::string>(13,"31"));
+
+    std::cout << "\nAuthor: Jesus Rodriguez-Luna\n" << std::endl;
+
     mp[13] = "31";
     mp[21] = "12";
     mp[5] = "5";
@@ -50,8 +51,8 @@ int main(int argc, char const *argv[])
         FILES PART 2 OF 3
     */
 
-    std::fstream small_inFile("C:/Users/jesus/Documents/GitHub/Hash-Map/small1k.txt", std::ios_base::in);
-    std::fstream large_inFile("C:/Users/jesus/Documents/GitHub/Hash-Map/large100k.txt", std::ios_base::in);
+    std::fstream small_inFile("C:/Users/jesus/GitHub/Hash-Map/small1k.txt", std::ios_base::in);
+    std::fstream large_inFile("C:/Users/jesus/GitHub/Hash-Map/large100k.txt", std::ios_base::in);
     std::map<int, std::string> mps;
     int v = 0;
     std::string k = "";

@@ -38,6 +38,8 @@ int main(int argc, char const *argv[])
     mp.put(37, "73");
     mp.put(15, "51");
 
+    std::cout << "\nAuthor: Jesus Rodriguez-Luna\n" << std::endl;
+
     for(auto p = mp.begin(); !(p == mp.end()); ++p) {
         std::cout << "{(" << (*p).key() << ", " << (*p).value() << ")}" << std::endl;
     }
@@ -71,8 +73,8 @@ int main(int argc, char const *argv[])
         FILES PART 2 OF 3
     */
 
-    std::fstream small_inFile("C:/Users/jesus/Documents/GitHub/Hash-Map/small1k.txt", std::ios_base::in);
-    std::fstream large_inFile("C:/Users/jesus/Documents/GitHub/Hash-Map/large100k.txt", std::ios_base::in);
+    std::fstream small_inFile("C:/Users/jesus/GitHub/Hash-Map/small1k.txt", std::ios_base::in);
+    std::fstream large_inFile("C:/Users/jesus/GitHub/Hash-Map/large100k.txt", std::ios_base::in);
     HashMap<int, std::string, intHashCode> filesMap(2 * 1000 + 1);
     int k = 0;
     std::string v = "";
